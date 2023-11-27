@@ -122,4 +122,31 @@ public class ProductDao {
         }
         return book;
     }
+
+    // Add this method in ProductDao.java
+    public List<Product> getProductsByCategory(String category) {
+        List<Product> categoryProducts = new ArrayList<>();
+        try {
+            query = "select * from products where category=?";
+            pst = this.con.prepareStatement(query);
+            pst.setString(1, category);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Product row = new Product();
+                row.setId(rs.getInt("id"));
+                row.setName(rs.getString("name"));
+                row.setCategory(rs.getString("category"));
+                row.setPrice(rs.getDouble("price"));
+                row.setImage(rs.getString("image"));
+
+                categoryProducts.add(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return categoryProducts;
+    }
+
 }

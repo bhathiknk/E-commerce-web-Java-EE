@@ -21,12 +21,36 @@ if (cart_list != null) {
 <html>
 <head>
 <%@include file="/includes/head.jsp"%>
-<title>E-Commerce Cart</title>
+<title>Green Store</title>
 </head>
 <body>
 	<%@include file="/includes/navbar.jsp"%>
-
+	<!-- Add this code in the body section of index.jsp -->
 	<div class="container">
+		<div class="card-header my-3">All Products</div>
+
+		<!-- Display categories and link to category.jsp -->
+		<div class="row">
+			<%
+				Set<String> uniqueCategories = new HashSet<>();
+				for (Product p : products) {
+					uniqueCategories.add(p.getCategory());
+				}
+				for (String category : uniqueCategories) {
+			%>
+			<div class="col-md-3 my-3">
+				<div class="card w-100">
+					<div class="card-body">
+						<h5 class="card-title"><a href="category.jsp?category=<%= category %>"><%= category %></a></h5>
+					</div>
+				</div>
+			</div>
+			<%
+				}
+			%>
+		</div>
+
+	 <div class="container">
 		<div class="card-header my-3">All Products</div>
 		<div class="row">
 			<%
