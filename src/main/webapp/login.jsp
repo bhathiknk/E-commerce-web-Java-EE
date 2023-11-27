@@ -37,6 +37,11 @@
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">Login</button>
 					</div>
+
+			<div>
+			<a href="signup.jsp" >Sign Up?</a>
+		</div>
+
 				</form>
 			</div>
 		</div>
