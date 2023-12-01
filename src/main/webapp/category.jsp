@@ -20,7 +20,7 @@
                 for (Product p : categoryProducts) {
         %>
         <div class="col-md-3 my-4">
-            <div class="card w-100">
+            <div class="card w-100 h-100">
                 <img class="card-img-top" src="ProductImages/<%=p.getImage() %>" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title"><%=p.getName() %></h5>
