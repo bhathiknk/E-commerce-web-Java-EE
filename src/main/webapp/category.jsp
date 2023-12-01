@@ -6,7 +6,7 @@
 <%@include file="/includes/head.jsp"%>
 <html>
 <head>
-    <title>Green Store - Category</title>
+    <title>Green Store Category</title>
 </head>
 <body>
 

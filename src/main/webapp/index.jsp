@@ -22,10 +22,31 @@
 <head>
 	<%@include file="/includes/head.jsp"%>
 	<title>Green Store</title>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.wrapper {
+			min-height: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.content {
+			flex: 1;
+		}
+	</style>
+
 </head>
 <body>
 <%@include file="/includes/navbar.jsp"%>
-<!-- Add this code in the body section of index.jsp -->
+
+
+<div class="wrapper">
 <div class="col-md-10">
 	<div class="row">
 		<!-- Display categories vertically on the left side -->
@@ -64,9 +85,9 @@
 							<h5 class="card-title"><%=p.getName() %></h5>
 							<h6 class="price">Price: $<%=p.getPrice() %></h6>
 							<h6 class="category">Category: <%=p.getCategory() %></h6>
-							<div class="mt-3 d-flex justify-content-between">
-								<a class="col-12 d-flex justify-content-center btn btn-dark" href="add-to-cart?id=<%=p.getId()%>">Add to Cart</a>
-							</div>
+						</div>
+						<div class="d-flex justify-content-center mb-3">
+							<a class="btn btn-dark" href="add-to-cart?id=<%=p.getId()%>">Add to Cart</a>
 						</div>
 					</div>
 				</div>
@@ -79,6 +100,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 <%@include file="/includes/footer.jsp"%>
