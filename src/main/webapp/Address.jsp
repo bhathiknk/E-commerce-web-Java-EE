@@ -155,7 +155,7 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        margin-left: 90px;
+        margin-left: 0px;
         margin-top: 10px;
 
     }
