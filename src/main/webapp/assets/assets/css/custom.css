@@ -1,0 +1,19 @@
+.space-loginPage {
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+
+.space-signUpPage{
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+.addcart-button:hover{
+    color: #ffffff;
+    transition: 0.8s;
+    background-color: #6610f2;
+}
+
+.space-cart{
+    padding-top: 100px;
+    padding-bottom: 10px;
+}
