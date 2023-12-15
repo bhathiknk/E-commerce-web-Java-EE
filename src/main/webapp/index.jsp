@@ -25,11 +25,11 @@
 		.addcart-button:hover{
 			color: #ffffff;
 			transition: 0.8s;
-			background-color: #6262a6;
+			background-color: #0da487;
 		}
 
 	</style>
-	<title>Swift Super</title>
+	<title>Green Store</title>
 
 
 </head>
@@ -88,10 +88,10 @@
 									 alt="">
 								<div class="banner-details p-center-left p-sm-5 p-4">
 									<div>
-										<h2 class="text-kaushan fw-normal orange-color">Sift Super</h2>
+										<h2 class="text-kaushan fw-normal orange-color">Green Store</h2>
 										<h3 class="mt-2 mb-3 text-white">TAKE ON THE DAY!</h3>
 										<p class="text-content banner-text text-white opacity-75 d-md-block d-none">
-											Sift Super new way to Shoping.</p>
+											Green Store new way to Shopping.</p>
 										<button onclick="location.href = 'shop-left-sidebar.html';"
 												class="btn btn-animation btn-sm mend-auto">Shop Now <i
 												class="fa-solid fa-arrow-right icon"></i></button>
@@ -213,29 +213,3 @@
 <%@include file="/includes/footer.jsp"%>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
