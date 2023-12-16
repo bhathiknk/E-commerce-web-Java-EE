@@ -49,6 +49,8 @@ public class CartServlet extends HttpServlet {
 				// List to store orders for all products
 				List<Order> orders = new ArrayList<>();
 
+				double totalAmount = 0.0; // Initialize total amount
+
 				Order order = null;
 				for (Cart c : cart_list) {
 					order = new Order();
@@ -74,6 +76,11 @@ public class CartServlet extends HttpServlet {
 
 					// Add the order to the list
 					orders.add(order);
+
+
+					// Calculate the order total and accumulate to the totalAmount
+					double orderTotal = order.getPrice() * order.getQunatity();
+					totalAmount += orderTotal;
 				}
 
 				// Insert all orders into the database
@@ -86,7 +93,7 @@ public class CartServlet extends HttpServlet {
 					// Send a single order confirmation email for all orders
 					SendEmailUtil.sendOrderConfirmationEmail(auth.getEmail(), orders.get(0).getOrderNum(),
 							selectedAddress.getAddress(), selectedAddress.getCity(), selectedAddress.getZipcode(),
-							selectedAddress.getMobileNumber(),orders);
+							selectedAddress.getMobileNumber(),orders,totalAmount);
 
 					// Set orderNum in the session (you can choose any orderNum from the list)
 					request.getSession().setAttribute("orderNum", orders.get(0).getOrderNum());
@@ -135,15 +142,26 @@ public class CartServlet extends HttpServlet {
 		return prefix + timestamp + randomString;
 	}
 
-	// Helper method to create order details for email content
+	// Modify the getOrderDetailsForEmail method to calculate total
 	private List<String> getOrderDetailsForEmail(List<Order> orders) {
 		List<String> orderDetails = new ArrayList<>();
+		double total = 0.0;
+
 		for (Order order : orders) {
+			double orderTotal = order.getPrice() * order.getQunatity();
+			total += orderTotal;
+
 			orderDetails.add("Product: " + order.getName() +
 					", Price: $" + order.getPrice() +
 					", Quantity: " + order.getQunatity() +
-					", Total: $" + (order.getPrice() * order.getQunatity()));
+					", Total: $" + orderTotal);
 		}
+
+		// Add total to the orderDetails
+		orderDetails.add("Total: $" + total);
+
 		return orderDetails;
 	}
+
+
 }

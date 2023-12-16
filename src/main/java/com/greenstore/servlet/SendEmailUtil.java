@@ -11,7 +11,7 @@ import java.util.Properties;
 public class SendEmailUtil {
     public static void sendOrderConfirmationEmail(String userEmail, String orderNum,
                                                   String selectedAddress, String selectedCity, String selectedZipcode,
-                                                  String selectedMobileNumber,List<Order> orders) {
+                                                  String selectedMobileNumber,List<Order> orders,double totalAmount) {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
@@ -37,38 +37,23 @@ public class SendEmailUtil {
                     + "    font-family: 'Arial', sans-serif;"
                     + "    background-color: #f4f4f4;"
                     + "    color: #333;"
+                    + "    margin: 0;"
+                    + "    padding: 0;"
+                    + "}"
+                    + ".container {"
+                    + "    max-width: 600px;"
+                    + "    margin: 0 auto;"
                     + "}"
                     + ".header {"
-                    + "    background-color: #0da487; /* Purple color */"
-                    + "    color: #000; /* Black color */"
-                    + "    padding: 8px;"
+                    + "    background-color: #0da487; /* Green color */"
+                    + "    color: #fff;"
                     + "    text-align: center;"
-                    + "    border-radius: 5px;"
+                    + "    padding: 20px;"
+                    + "    border-top-left-radius: 5px;"
+                    + "    border-top-right-radius: 5px;"
                     + "}"
-                    + "p {"
-                    + "    font-size: 16px;"
-                    + "    margin-bottom: 10px;"
-                    + "    text-align: center;"
-                    + "}"
-                    + "strong {"
-                    + "    color: #555;"
-                    + "}"
-                    + "h1 {"
-                    + "    color: #ffffff;"
-                    + "}"
-                    + ".footer {"
-                    + "    background-color: #333; /* Dark color for the footer */"
-                    + "    color: #fff; /* White text color */"
-                    + "    text-align: center;"
-                    + "    padding: 10px;"
-                    + "    position: fixed;"
-                    + "    bottom: 0;"
-                    + "    width: 100%;"
-                    + "}"
-                    + ".footer img {"
-                    + "    max-width: 50px; /* Adjust the max-width of the logo as needed */"
-                    + "    height: auto;"
-                    + "    margin-top: -5px; /* Adjust the margin-top to align the logo with text */"
+                    + ".content {"
+                    + "    padding: 20px;"
                     + "}"
                     + "table {"
                     + "    width: 100%;"
@@ -82,20 +67,29 @@ public class SendEmailUtil {
                     + "    padding: 10px;"
                     + "    text-align: left;"
                     + "}"
+                    + ".footer {"
+                    + "    background-color: #333; /* Dark color for the footer */"
+                    + "    color: #fff; /* White text color */"
+                    + "    text-align: center;"
+                    + "    padding: 10px;"
+                    + "    border-bottom-left-radius: 5px;"
+                    + "    border-bottom-right-radius: 5px;"
+                    + "}"
                     + "</style>"
                     + "</head>"
                     + "<body>"
+                    + "<div class='container'>"
                     + "<div class='header'>"
-                    + "    <h1>Green Store</h1>"
+                    + "    <h1>Green Store Invoice</h1>"
                     + "</div>"
+                    + "<div class='content'>"
                     + "<p>Thank you for your purchase!</p>"
-                    + "<p>Your order ID is: <strong>" + orderNum + "</strong></p>"
+                    + "<p>Your order ID is: <strong>" + orders.get(0).getOrderNum() + "</strong></p>"
                     + "<p>Customer Address- "
                     + "<p> Address: <strong>" + selectedAddress + "</strong> </p>"
                     + "<p> City: <strong>" + selectedCity + "</strong> </p>"
                     + "<p> Zip Code: <strong>" + selectedZipcode + "</strong> </p>"
                     + "<p>Mobile Number: <strong>" + selectedMobileNumber + "</strong></p>"
-                    + "<p>Order Details:</p>"
                     + "<table>"
                     + "    <thead>"
                     + "        <tr>"
@@ -107,24 +101,27 @@ public class SendEmailUtil {
                     + "    </thead>"
                     + "    <tbody>");
 
-            // Add order details to the email content
+// Add order details to the email content
             for (Order order : orders) {
                 emailContent.append("<tr>")
                         .append("<td>").append(order.getName()).append("</td>")
                         .append("<td>").append(order.getQunatity()).append("</td>")
-                        .append("<td>").append(order.getPrice()).append("</td>")
-                        .append("<td>").append(order.getPrice() * order.getQunatity()).append("</td>")
+                        .append("<td>").append("$").append(order.getPrice()).append("</td>")
+                        .append("<td>").append("$").append(order.getPrice() * order.getQunatity()).append("</td>")
                         .append("</tr>");
             }
 
             emailContent.append("    </tbody>"
                     + "</table>"
-                    + "<div class=\"footer\">"
-                    + "    <img src=\"assets/images/logo/ftlogo.png\" alt=\"Logo\">"
-                    + "    <h6 class=\"text-content\"> &copy; Green Store All rights reserved</h6>"
+                    + "<p>Total: <strong>$").append(totalAmount).append("</strong></p>"
+                    + "</div>"
+                    + "<div class='footer'>"
+                    + "    <p>&copy; Green Store All rights reserved</p>"
+                    + "</div>"
                     + "</div>"
                     + "</body>"
                     + "</html>");
+
 
 
 
