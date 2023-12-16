@@ -267,7 +267,7 @@
 <script>
     function goToOrderPage() {
         // Redirect to the order page or update the location as needed
-        window.location.href = '/orders.jsp';
+        window.location.href = 'orders.jsp';
     }
     paypal.Buttons({
         createOrder: function (data, actions) {
@@ -292,7 +292,7 @@
 
                 // Make an AJAX call to the CartServlet
                 $.ajax({
-                    url: '/cart-check-out',
+                    url: 'cart-check-out',
                     method: 'GET',
                     success: function(response) {
                         // Handle the response if needed

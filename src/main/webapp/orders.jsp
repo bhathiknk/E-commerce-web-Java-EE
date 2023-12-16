@@ -221,7 +221,7 @@
 		<div class="card-header my-3">All Orders</div>
 
 		<!-- Search Form with Bootstrap styling -->
-		<form action="/search-orders" method="GET" class="mb-3">
+		<form action="search-orders" method="GET" class="mb-3">
 			<div class="form-group">
 				<label for="orderNum">Search by Order Number:</label>
 				<input type="text" class="form-control" id="orderNum" name="orderNum" placeholder="Enter Order Number">
