@@ -6,7 +6,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class SendEmailUtil {
-    public static void sendOrderConfirmationEmail(String userEmail, String orderNum) {
+    public static void sendOrderConfirmationEmail(String userEmail, String orderNum, String selectedAddress, String selectedCity, String selectedZipcode, String selectedMobileNumber) {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
@@ -79,6 +79,11 @@ public class SendEmailUtil {
                     + "</div>"
                     + "<p>Thank you for your purchase !</p>"
                     + "<p>Your order ID is: <strong>" + orderNum + "</strong></p>"
+                    + "<p>Customer Address- "
+                    + "<p> Address:<strong>" + selectedAddress + "</strong> </p>"
+                    + "<p> City:<strong>" + selectedCity + "</strong> </p>"
+                    + "<p> Zip Code:<strong>" + selectedZipcode + "</strong> </p>"
+                    + "<p>Mobile Number: <strong>" + selectedMobileNumber + "</strong></p>"
                     +"<div class=\"container\">"
                     +" <img src=\"assets/images/logo/ftlogo.png\" alt=\"Logo\">"
                     +"<h6 class=\"text-content\"> &copy; Green Store All rights reserved</h6>"

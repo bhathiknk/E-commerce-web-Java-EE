@@ -8,6 +8,9 @@ public class Order extends Product{
 
 	private String orderNum;
 
+	private Address address; // Reference to Address object
+
+
 
 
 	public Order(int orderId, int uid, int qunatity, String date,String orderNum) {
@@ -58,5 +61,13 @@ public class Order extends Product{
 
 	public void setOrderNum(String orderNum) {
 		this.orderNum = orderNum;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

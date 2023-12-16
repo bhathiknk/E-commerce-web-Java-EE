@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.UUID;
 
 import com.greenstore.connection.DbCon;
+import com.greenstore.dao.AddressDao;
 import com.greenstore.dao.OrderDao;
+import com.greenstore.model.Address;
 import com.greenstore.model.Cart;
 import com.greenstore.model.Order;
 import com.greenstore.model.User;
@@ -35,6 +37,13 @@ public class CartServlet extends HttpServlet {
 
 			if (cart_list != null && auth != null) {
 				OrderDao oDao = new OrderDao(DbCon.getConnection());
+				AddressDao addressDao = new AddressDao(DbCon.getConnection());
+
+				// Retrieve addresses for the user
+				List<Address> addresses = addressDao.getAddressesByUserId(auth.getId());
+
+				// Assume the first address is selected; you can modify this based on your logic
+				Address selectedAddress = addresses.get(0);
 
 				// List to store orders for all products
 				List<Order> orders = new ArrayList<>();
@@ -51,6 +60,9 @@ public class CartServlet extends HttpServlet {
 					String orderNum = generateOrderNumber();
 					order.setOrderNum(orderNum);
 
+					// Set the selected address details in the order
+					order.setAddress(selectedAddress);
+
 					// Add the order to the list
 					orders.add(order);
 				}
@@ -61,7 +73,9 @@ public class CartServlet extends HttpServlet {
 
 				if (result) {
 					// Send a single order confirmation email for all orders
-					SendEmailUtil.sendOrderConfirmationEmail(auth.getEmail(), orders.get(0).getOrderNum());
+					SendEmailUtil.sendOrderConfirmationEmail(auth.getEmail(), orders.get(0).getOrderNum(),
+							selectedAddress.getAddress(), selectedAddress.getCity(), selectedAddress.getZipcode(),
+							selectedAddress.getMobileNumber());
 
 					// Set orderNum in the session (you can choose any orderNum from the list)
 					request.getSession().setAttribute("orderNum", orders.get(0).getOrderNum());
