@@ -12,16 +12,17 @@ import java.util.UUID;
 import com.greenstore.connection.DbCon;
 import com.greenstore.dao.AddressDao;
 import com.greenstore.dao.OrderDao;
+import com.greenstore.dao.ProductDao;
 import com.greenstore.model.Address;
 import com.greenstore.model.Cart;
 import com.greenstore.model.Order;
+import com.greenstore.model.Product;
 import com.greenstore.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 
 @WebServlet("/cart-check-out")
 public class CartServlet extends HttpServlet {
@@ -60,6 +61,14 @@ public class CartServlet extends HttpServlet {
 					String orderNum = generateOrderNumber();
 					order.setOrderNum(orderNum);
 
+					// Retrieve product details based on p_id
+					ProductDao productDao = new ProductDao(DbCon.getConnection());
+					Product product = productDao.getProductById(c.getId());
+
+					// Add product details to order
+					order.setName(product.getName());
+					order.setPrice(product.getPrice());
+
 					// Set the selected address details in the order
 					order.setAddress(selectedAddress);
 
@@ -70,15 +79,19 @@ public class CartServlet extends HttpServlet {
 				// Insert all orders into the database
 				boolean result = oDao.insertOrders(orders);
 
-
 				if (result) {
+					// Create order details for email content
+					List<String> orderDetails = getOrderDetailsForEmail(orders);
+
 					// Send a single order confirmation email for all orders
 					SendEmailUtil.sendOrderConfirmationEmail(auth.getEmail(), orders.get(0).getOrderNum(),
 							selectedAddress.getAddress(), selectedAddress.getCity(), selectedAddress.getZipcode(),
-							selectedAddress.getMobileNumber());
+							selectedAddress.getMobileNumber(),orders);
 
 					// Set orderNum in the session (you can choose any orderNum from the list)
 					request.getSession().setAttribute("orderNum", orders.get(0).getOrderNum());
+					// Set orderDetails in the session
+					request.getSession().setAttribute("orderDetails", orderDetails);
 
 					// Clear the cart after successful order processing
 					cart_list.clear();
@@ -105,11 +118,7 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	// Existing doPost method...
 
 	private String generateOrderNumber() {
 		// Static prefix for the order number
@@ -124,5 +133,17 @@ public class CartServlet extends HttpServlet {
 
 		// Combine all parts to form the unique order number
 		return prefix + timestamp + randomString;
+	}
+
+	// Helper method to create order details for email content
+	private List<String> getOrderDetailsForEmail(List<Order> orders) {
+		List<String> orderDetails = new ArrayList<>();
+		for (Order order : orders) {
+			orderDetails.add("Product: " + order.getName() +
+					", Price: $" + order.getPrice() +
+					", Quantity: " + order.getQunatity() +
+					", Total: $" + (order.getPrice() * order.getQunatity()));
+		}
+		return orderDetails;
 	}
 }

@@ -148,5 +148,27 @@ public class ProductDao {
         }
         return categoryProducts;
     }
+    // Add this method to get a product by ID
+    public Product getProductById(int id) {
+        Product product = null;
+        try {
+            query = "select * from products where id=?";
+            pst = this.con.prepareStatement(query);
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
 
+            if (rs.next()) {
+                product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setCategory(rs.getString("category"));
+                product.setPrice(rs.getDouble("price"));
+                product.setImage(rs.getString("image"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return product;
+    }
 }

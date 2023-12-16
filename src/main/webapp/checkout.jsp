@@ -278,7 +278,10 @@
                         currency_code: 'USD', // Change this to your desired currency code
                         value: '<%=dcf.format(total)%>'
                     }
-                }]
+                }],
+                application_context: {
+                    shipping_preference: 'NO_SHIPPING'
+                }
             });
         },
         onApprove: function (data, actions) {
