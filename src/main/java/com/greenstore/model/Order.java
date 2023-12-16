@@ -5,14 +5,18 @@ public class Order extends Product{
 	private int uid;
 	private int qunatity;
 	private String date;
-	
 
-	public Order(int orderId, int uid, int qunatity, String date) {
+	private String orderNum;
+
+
+
+	public Order(int orderId, int uid, int qunatity, String date,String orderNum) {
 		super();
 		this.orderId = orderId;
 		this.uid = uid;
 		this.qunatity = qunatity;
 		this.date = date;
+		this.orderNum = orderNum;
 	}
 
 	public Order() {
@@ -26,7 +30,7 @@ public class Order extends Product{
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
-	
+
 	public int getUid() {
 		return uid;
 	}
@@ -46,5 +50,13 @@ public class Order extends Product{
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getOrderNum() {
+		return orderNum;
+	}
+
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
 	}
 }
