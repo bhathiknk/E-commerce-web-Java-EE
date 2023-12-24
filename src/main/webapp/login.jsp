@@ -132,7 +132,7 @@
 
 <!-- log in section start -->
 <div class="space-signUpPage">
-	<form class="log-in-section background-image-2 section-b-space" action="user-login" method="post">
+	<form class="log-in-section background-image-2 section-b-space" action="/user-login" method="post">
 		<div class="container-fluid-lg w-100">
 			<div class="row">
 				<div class="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
@@ -165,7 +165,12 @@
 										</div>
 										<a href="signup.jsp" class="forgot-password">Signup ?</a>
 									</div>
+
 								</div>
+							    	<div>
+							        	<a href="AdminLoging.jsp" class="forgot-password">Admin</a>
+							        </div>
+
 
 								<div class="col-12">
 									<button class="btn btn-animation w-100 justify-content-center" type="submit">Login</button>
