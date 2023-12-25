@@ -25,7 +25,7 @@
 		.addcart-button:hover{
 			color: #ffffff;
 			transition: 0.8s;
-			background-color: #0da487;
+			background-color: #0da68a;
 		}
 
 	</style>

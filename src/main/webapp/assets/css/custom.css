@@ -1,10 +1,15 @@
-.space-loginPage {
-    padding-top: 200px;
-    padding-bottom: 200px;
-}
 
 .space-signUpPage{
-    padding-top: 200px;
-    padding-bottom: 200px;
+    padding-top: 10px;
+    padding-bottom: 50px;
 }
 
+.space-cart{
+    padding-top: 100px;
+    padding-bottom: 10px;
+}
+
+.home-btn{
+    color: #ffffff;
+
+}
