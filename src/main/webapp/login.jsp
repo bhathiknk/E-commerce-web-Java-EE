@@ -166,6 +166,9 @@
 										<a href="signup.jsp" class="forgot-password">Signup ?</a>
 									</div>
 								</div>
+								<div>
+								<a href="AdminLoging.jsp" class="forgot-password">Admin</a>
+							</div>
 
 								<div class="col-12">
 									<button class="btn btn-animation w-100 justify-content-center" type="submit">Login</button>
