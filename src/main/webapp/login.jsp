@@ -160,15 +160,11 @@
 								<div class="col-12">
 									<div class="forgot-box">
 										<div class="form-check ps-0 m-0 remember-box">
-											<input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Remember me</label>
+											<a href="signup.jsp" class="forgot-password">Signup ?</a>
 										</div>
-										<a href="signup.jsp" class="forgot-password">Signup ?</a>
+										<a href="AdminLoging.jsp" class="forgot-password">Admin ?</a>
 									</div>
 								</div>
-								<div>
-								<a href="AdminLoging.jsp" class="forgot-password">Admin</a>
-							</div>
 
 								<div class="col-12">
 									<button class="btn btn-animation w-100 justify-content-center" type="submit">Login</button>

@@ -187,10 +187,8 @@
                                 <div class="col-12">
                                     <div class="forgot-box">
                                         <div class="form-check ps-0 m-0 remember-box">
-                                            <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">Remember me</label>
+                                            <a href="login.jsp" class="forgot-password">Forgot Password?</a>
                                         </div>
-                                        <a href="login.jsp" class="forgot-password">Forgot Password?</a>
                                     </div>
                                 </div>
 
