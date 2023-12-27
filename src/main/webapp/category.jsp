@@ -415,7 +415,6 @@
 </div>
 <!-- Deal Box Modal End -->
 
-
 <!-- Tap to top start -->
 <div class="theme-option">
     <div class="setting-box">
