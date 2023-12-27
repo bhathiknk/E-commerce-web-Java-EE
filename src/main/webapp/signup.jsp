@@ -69,17 +69,15 @@
                             <div>
                                 <div class="timer-notification">
                                     <h6><strong class="me-1">Welcome to Green Store!</strong>Wrap new offers/gift
-                                        every single day on Weekends.<strong class="ms-1">New Coupon Code: Gt123
-                                        </strong>
-
+                                        every single day on Weekends.<strong class="ms-1">New Coupon Code: Gst24#24</strong>
                                     </h6>
                                 </div>
                             </div>
 
                             <div>
                                 <div class="timer-notification">
-                                    <h6>Something you love is now on sale!
-                                        <a  class="text-white">Buy Now !</a>
+                                    <h6><strong class="me-1">Contact us :</strong>+94 112 345678 / +94 74863434
+                                        <strong class="ms-1">: greenstore@gmail.com</strong>
                                     </h6>
                                 </div>
                             </div>

@@ -34,8 +34,8 @@
                         <div class="notification-slider">
                             <div>
                                 <div class="timer-notification">
-                                    <h6><strong class="me-1">Welcome to Green Store!</strong>Wrap new offers/gift
-                                        every single day on Weekends.<strong class="ms-1">New Coupon Code: Gt123
+                                    <h6><strong class="me-1">GreenStore Admin Section</strong> :
+                                        <strong class="ms-1">Fill below details to login !
                                         </strong>
 
                                     </h6>
@@ -44,8 +44,8 @@
 
                             <div>
                                 <div class="timer-notification">
-                                    <h6>Something you love is now on sale!
-                                        <a  class="text-white">Buy Now !</a>
+                                    <h6>GreenStore
+                                        <a  class="text-white">Admin page</a>
                                     </h6>
                                 </div>
                             </div>

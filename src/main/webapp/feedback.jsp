@@ -44,8 +44,8 @@
               <div>
                 <div class="timer-notification">
                   <h6>
-                     <strong class="me-1">Contact Us: </strong>GreenStore
-                     <strong class="ms-1">+94 74123456</strong>
+                    <strong class="me-1">Contact Us: </strong>GreenStore
+                    <strong class="ms-1">+94 74123456</strong>
                   </h6>
                 </div>
               </div>
@@ -177,8 +177,8 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="table-responsive shadow p-3 mb-5 bg-body rounded">
-                      <table class="table table-bordered">
-                        <thead>
+                      <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
                         <tr>
                           <th>Email</th>
                           <th>Date</th>
@@ -189,16 +189,17 @@
                         <tr>
                           <td>user@example.com</td>
                           <td>2023-12-25</td>
-                          <td>user feedback,SVRSVRSVSVRSRSVRSV</td>
+                          <td>user feedback, SVRSVRSVSVRSRSVRSV</td>
                         </tr>
-                        <!-- Add more rows as needed -->
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-            </section><!-- Feedback Table Section End -->
+            </section>
+            <!-- Feedback Table Section End -->
+
           </div>
         </div>
 
