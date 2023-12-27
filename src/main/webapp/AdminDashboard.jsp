@@ -135,7 +135,7 @@
                                     <i class="fa-sharp fa-solid fa-envelope"></i>
                                 </a>
                             </li>
-                           <li class="breadcrumb-item active" aria-current="page"> <a href="feedback.jsp">Feedbacks</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> <a href="feedback.jsp">Feedbacks</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -214,31 +214,44 @@
                 <div class="show-button">
                     <div class="filter-button-group mt-0">
                         <div class="filter-button d-inline-block d-lg-none"></div>
-                        <!-- Add product information fields start-->
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="productName" placeholder="Product Name">
-                            <label for="productName">Product Name</label>
-                        </div>
+                        <!-- New Grid for Product Information Fields -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="productName" placeholder="Product Name">
+                                    <label for="productName">Product Name</label>
+                                </div>
+                            </div>
 
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="productCategory" placeholder="Product Category">
-                            <label for="productCategory">Product Category</label>
-                        </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="productCategory" placeholder="Product Category">
+                                    <label for="productCategory">Product Category</label>
+                                </div>
+                            </div>
 
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="productPrice" placeholder="Product Price">
-                            <label for="productPrice">Product Price</label>
-                        </div>
-                        <div class="mb-4">
-                            <label for="productImage" class="form-label"></label>
-                            <div class="input-group">
-                                <input type="file" class="form-control" id="productImage" accept="image/*">
-                                <label class="input-group-text" for="productImage">Choose File</label>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="productPrice" placeholder="Product Price">
+                                    <label for="productPrice">Product Price</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <label for="productImage" class="form-label"></label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="productImage" accept="image/*">
+                                        <label class="input-group-text" for="productImage">Choose File</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <button class="btn btn-add-cart save-button mb-4" id="saveProduct">Save</button>
                             </div>
                         </div>
-
-                        <button class="btn btn-add-cart save-button mb-4" id="saveProduct">Save</button>
-                        <!-- Add product information fields end -->
+                        <!-- End of New Grid for Product Information Fields -->
                     </div>
 
                     <div class="top-filter-menu">

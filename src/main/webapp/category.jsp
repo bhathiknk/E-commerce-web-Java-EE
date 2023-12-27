@@ -45,18 +45,15 @@
                             <div>
                                 <div class="timer-notification">
                                     <h6><strong class="me-1">Welcome to Green Store!</strong>Wrap new offers/gift
-                                        every single day on Weekends.<strong class="ms-1">New Coupon Code: Gt123
-                                        </strong>
-
+                                        every single day on Weekends.<strong class="ms-1">New Coupon Code: Gst24#24</strong>
                                     </h6>
                                 </div>
                             </div>
 
                             <div>
                                 <div class="timer-notification">
-                                    <h6>Something you love is now on sale!
-                                        <a href="#" class="text-white">Buy Now
-                                            !</a>
+                                    <h6><strong class="me-1">Contact us :</strong>+94 112 345678 / +94 74863434
+                                        <strong class="ms-1">: greenstore@gmail.com</strong>
                                     </h6>
                                 </div>
                             </div>
@@ -126,7 +123,7 @@
                                     <i class="fa-solid fa-house"></i>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Home Page</li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="index.jsp">Home Page</a> </li>
                         </ol>
                     </nav>
                 </div>
@@ -339,6 +336,48 @@
 
 <!-- Tap to top start -->
 <div class="theme-option">
+    <div class="setting-box">
+        <button class="btn setting-button">
+            <i class="fa-solid fa-message" title="Send a feed Back"></i>
+        </button>
+
+        <div class="theme-setting-2">
+            <div class="theme-box">
+                <ul>
+                    <li>
+                        <div class="setting-name">
+                            <h4><i class="fa-solid fa-message"></i></h4>
+                        </div>
+                        <div class="theme-setting-button color-picker">
+                            <form class="form-control">
+                                <label  class="form-label mb-0">Give us your valuable feedback !</label>
+                            </form>
+                        </div>
+                    </li>
+                    <form>
+                        <div class="row g-3 section-b-space">
+                            <div class="col-md-12">
+                                <label for="userEmail" class="form-label">Your Email:</label>
+                                <div class="input-group">
+                                    <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="userFeedback" class="form-label">Your Feedback:</label>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="userFeedback" name="userFeedback" placeholder="Enter your feedback" rows="3" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <button type="submit" class="btn btn-add-cart addcart-button btn-sm">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <div class="back-to-top">
         <a id="back-to-top" href="#">
             <i class="fas fa-chevron-up"></i>

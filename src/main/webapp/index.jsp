@@ -53,7 +53,7 @@
 		<div class="custom-row">
 			<div class="sidebar-col">
 				<div class="category-menu">
-					<a href="ordersuccess.jsp" class="web-logo nav-logo">
+					<a href="#" class="web-logo nav-logo">
 						<img src="assets/images/logo/5.png" class="img-fluid blur-up lazyload" alt="">
 					</a>
 					<ul>
@@ -84,7 +84,7 @@
 					<div class="row g-md-4 g-3">
 						<div class="col-xxl-8 col-xl-12 col-md-7">
 							<div class="banner-contain hover-effect">
-								<img src="assets/images/grocery/banner/11.jpg" class="bg-img blur-up lazyload"
+								<img src="assets/images/banner/11.jpg" class="bg-img blur-up lazyload"
 									 alt="">
 								<div class="banner-details p-center-left p-sm-5 p-4">
 									<div>
@@ -102,7 +102,7 @@
 
 						<div class="col-xxl-4 col-xl-12 col-md-5">
 							<div class="banner-contain hover-effect h-100">
-								<img src="assets/images/grocery/banner/12.jpg" class="bg-img blur-up lazyload"
+								<img src="assets/images/banner/12.jpg" class="bg-img blur-up lazyload"
 									 alt="">
 								<div class="banner-details p-center-left p-4 h-100">
 									<div>
@@ -140,7 +140,7 @@
 
 							</div>
 							<div class="product-detail position-relative">
-								<a href="moreinfo.jsp">
+								<a href="#">
 									<h6 class="name">
 										<%=p.getCategory() %>
 									</h6>
@@ -195,8 +195,51 @@
 <!-- Cookie Bar Box End -->
 
 
+
 <!-- Tap to top start -->
 <div class="theme-option">
+	<div class="setting-box">
+		<button class="btn setting-button">
+			<i class="fa-solid fa-message" title="Send a feed Back"></i>
+		</button>
+
+		<div class="theme-setting-2">
+			<div class="theme-box">
+				<ul>
+					<li>
+						<div class="setting-name">
+							<h4><i class="fa-solid fa-message"></i></h4>
+						</div>
+						<div class="theme-setting-button color-picker">
+							<form class="form-control">
+								<label  class="form-label mb-0">Give us your valuable feedback !</label>
+							</form>
+						</div>
+					</li>
+					<form>
+						<div class="row g-3 section-b-space">
+							<div class="col-md-12">
+								<label for="userEmail" class="form-label">Your Email:</label>
+								<div class="input-group">
+									<input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="Enter your email" required>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<label for="userFeedback" class="form-label">Your Feedback:</label>
+								<div class="input-group">
+									<textarea class="form-control" id="userFeedback" name="userFeedback" placeholder="Enter your feedback" rows="3" required></textarea>
+								</div>
+							</div>
+							<div class="col-md-12 mt-3">
+								<button type="submit" class="btn btn-add-cart addcart-button btn-sm">Send</button>
+							</div>
+						</div>
+					</form>
+				</ul>
+			</div>
+		</div>
+	</div>
+
 	<div class="back-to-top">
 		<a id="back-to-top" href="#">
 			<i class="fas fa-chevron-up"></i>

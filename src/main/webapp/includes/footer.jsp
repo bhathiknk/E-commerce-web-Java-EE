@@ -54,7 +54,7 @@
     <div class="container-fluid-xs">
         <div class="sub-footer">
             <div class="reserve">
-                <h6 class="text-content"> &copy; Swift Super All rights reserved</h6>
+                <h6 class="text-content"> &copy;Green Store All rights reserved</h6>
             </div>
 
             <div class="payment">
