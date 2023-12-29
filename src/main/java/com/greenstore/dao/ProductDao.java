@@ -1,5 +1,6 @@
 package com.greenstore.dao;
 
+import java.io.File;
 import java.sql.*;
 import java.util.*;
 import com.greenstore.model.Cart;
@@ -171,4 +172,31 @@ public class ProductDao {
         }
         return product;
     }
+
+    // Add this method to ProductDao.java
+    public void addProduct(Product product) {
+        try {
+            // Ensure 'name' is not null before inserting into the database
+            if (product.getName() == null || product.getName().trim().isEmpty()) {
+                System.out.println("Error: 'name' cannot be null or empty.");
+                return;
+            }
+
+            // Extract file name from the image path
+            String fileName = new File(product.getImage()).getName();
+
+            query = "INSERT INTO products (name, category, price, image) VALUES (?, ?, ?, ?)";
+            pst = this.con.prepareStatement(query);
+            pst.setString(1, product.getName());
+            pst.setString(2, product.getCategory());
+            pst.setDouble(3, product.getPrice());
+            pst.setString(4, fileName);  // Save only the original file name
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }

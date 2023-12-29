@@ -5,7 +5,21 @@
   Time: 22:47
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+
+<%@page import="com.greenstore.connection.DbCon"%>
+<%@page import="com.greenstore.dao.ProductDao"%>
+<%@page import="com.greenstore.model.*"%>
+<%@page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+
+<%
+    ProductDao pd = new ProductDao(DbCon.getConnection());
+    List<Product> products = pd.getAllProducts();
+
+%>
 <html>
 <head>
     <%@include file="/includes/head.jsp"%>
@@ -215,42 +229,28 @@
                     <div class="filter-button-group mt-0">
                         <div class="filter-button d-inline-block d-lg-none"></div>
                         <!-- New Grid for Product Information Fields -->
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-4">
-                                    <input type="text" class="form-control" id="productName" placeholder="Product Name">
-                                    <label for="productName">Product Name</label>
-                                </div>
+                        <form action="/ProductServlet" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="productName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="productName" name="productName" required>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-floating mb-4">
-                                    <input type="text" class="form-control" id="productCategory" placeholder="Product Category">
-                                    <label for="productCategory">Product Category</label>
-                                </div>
+                            <div class="mb-3">
+                                <label for="productCategory" class="form-label">Product Category</label>
+                                <input type="text" class="form-control" id="productCategory" name="productCategory" required>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-floating mb-4">
-                                    <input type="text" class="form-control" id="productPrice" placeholder="Product Price">
-                                    <label for="productPrice">Product Price</label>
-                                </div>
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Product Price</label>
+                                <input type="number" class="form-control" id="productPrice" name="productPrice" required>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <label for="productImage" class="form-label"></label>
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="productImage" accept="image/*">
-                                        <label class="input-group-text" for="productImage">Choose File</label>
-                                    </div>
-                                </div>
+                            <div class="mb-3">
+                                <label for="productImage" class="form-label">Product Image</label>
+                                <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required>
                             </div>
-
-                            <div class="col-md-12">
-                                <button class="btn btn-add-cart save-button mb-4" id="saveProduct">Save</button>
-                            </div>
-                        </div>
+                            <button type="submit" class="btn btn-primary">Save Product</button>
+                        </form>
                         <!-- End of New Grid for Product Information Fields -->
                     </div>
 
@@ -268,28 +268,32 @@
                 </div>
 
 
-                <div class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section">
 
-                    <div>
-                        <div class="product-box-3 h-100 wow fadeInUp">
-
-                            <div class="product-header">
-
+                    <div class="row row-cols-xxl-6 row-cols-lg-5 row-cols-md-4 row-cols-sm-3 row-cols-2 g-sm-4 g-3 section-b-space">
+                        <%
+                            if (!products.isEmpty()) {
+                                for (Product p : products) {
+                        %>
+                        <div>
+                            <div class="product-box product-white-bg wow fadeIn">
                                 <div class="product-image">
+                                    <a href=#>
+                                        <img src="ProductImages/<%=p.getImage() %>"
+                                             class="img-fluid blur-up lazyload" alt="">
+                                    </a>
 
-                                    <a href="#">
-                                        <img src="" class="img-fluid blur-up lazyload" alt="">
-                                    </a>
                                 </div>
-                            </div>
-                            <div class="product-footer">
-                                <div class="product-detail">
-                                    <span class="span-name">Category name</span>
+                                <div class="product-detail position-relative">
                                     <a href="#">
-                                        <h5 class="name">item Name</h5>
+                                        <h6 class="name">
+                                            <%=p.getCategory() %>
+                                        </h6>
                                     </a>
-                                    <h5 class="price"><span class="theme-color">Price Rs. </span>
-                                    </h5>
+
+                                    <h6 class="sold weight text-content fw-normal"> <%=p.getName() %></h6>
+
+                                    <h6 class="price theme-color"> Rs. <%=p.getPrice() %></h6>
+
                                     <div class="add-to-cart-box bg-white">
                                         <a href="add-to-cart">
                                             <button class="btn btn-add-cart remove-button" >Remove</button>
@@ -300,11 +304,20 @@
                                             <button class="btn btn-add-cart edit-button" >Edit</button>
                                         </a>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
+                        <%
+                                }
+                            }
+                            else
+                            {
+                                out.println("There is no products");
+                            }
+                        %>
                     </div>
-                </div>
+
 
 
                 <nav class="custome-pagination">
