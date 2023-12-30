@@ -223,12 +223,14 @@
                     </div>
                 </div>
             </div>
+            <!--
+                        <div class="col-custome-9">
+                            <div class="show-button">
+                                <div class="filter-button-group mt-0">
+                                    <div class="filter-button d-inline-block d-lg-none"></div>
 
-            <div class="col-custome-9">
-                <div class="show-button">
-                    <div class="filter-button-group mt-0">
-                        <div class="filter-button d-inline-block d-lg-none"></div>
-                        <!-- New Grid for Product Information Fields -->
+
+
                         <form action="/ProductServlet" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="productName" class="form-label">Product Name</label>
@@ -251,25 +253,26 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Save Product</button>
                         </form>
-                        <!-- End of New Grid for Product Information Fields -->
                     </div>
+                    -->
 
-                    <div class="top-filter-menu">
-                        <div class="category-dropdown">
-                            <h5 class="text-content">Admin Dashboard</h5>
-                            <div class="dropdown">
-                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                        data-bs-toggle="dropdown">
-                                    <span>Add Product</span>
-                                </button>
-                            </div>
-                        </div>
+
+            <div class="top-filter-menu text-center">
+                <div class="category-dropdown">
+                    <h5 class="text-content font-weight-bold">Admin Dashboard</h5>
+                    <div class="add-to-cart-box bg-white">
+                        <a href="AddProduct.jsp" class="text-decoration-none">
+                            <button class="btn btn-add-cart edit-button btn-success">Add Product</button>
+                        </a>
                     </div>
                 </div>
+            </div>
 
 
 
-                    <div class="row row-cols-xxl-6 row-cols-lg-5 row-cols-md-4 row-cols-sm-3 row-cols-2 g-sm-4 g-3 section-b-space">
+
+
+            <div class="row row-cols-xxl-6 row-cols-lg-5 row-cols-md-4 row-cols-sm-3 row-cols-2 g-sm-4 g-3 section-b-space">
                         <%
                             if (!products.isEmpty()) {
                                 for (Product p : products) {
@@ -295,13 +298,15 @@
                                     <h6 class="price theme-color"> Rs. <%=p.getPrice() %></h6>
 
                                     <div class="add-to-cart-box bg-white">
-                                        <a href="add-to-cart">
-                                            <button class="btn btn-add-cart remove-button" >Remove</button>
-                                        </a>
+                                        <form action="/DeleteProductServlet" method="post">
+                                            <input type="hidden" name="productId" value="<%=p.getId() %>">
+                                            <button type="submit" class="btn btn-add-cart remove-button">Remove</button>
+                                        </form>
                                     </div>
+
                                     <div class="add-to-cart-box bg-white">
-                                        <a href="add-to-cart">
-                                            <button class="btn btn-add-cart edit-button" >Edit</button>
+                                        <a href="UpdateProduct.jsp?productId=<%=p.getId() %>" class="text-decoration-none">
+                                            <button class="btn btn-add-cart edit-button btn-success">Edit</button>
                                         </a>
                                     </div>
 

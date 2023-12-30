@@ -174,7 +174,7 @@ public class ProductDao {
     }
 
     // Add this method to ProductDao.java
-    public void addProduct(Product product) {
+    public void addProduct(Product product) throws SQLException {
         try {
             // Ensure 'name' is not null before inserting into the database
             if (product.getName() == null || product.getName().trim().isEmpty()) {
@@ -185,12 +185,26 @@ public class ProductDao {
             // Extract file name from the image path
             String fileName = new File(product.getImage()).getName();
 
-            query = "INSERT INTO products (name, category, price, image) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO products (name, category, price, image) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement pst = this.con.prepareStatement(query)) {
+                pst.setString(1, product.getName());
+                pst.setString(2, product.getCategory());
+                pst.setDouble(3, product.getPrice());
+                pst.setString(4, fileName);  // Save only the original file name
+                pst.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    // Add this method to ProductDao.java
+    public void deleteProduct(int id) {
+        try {
+            query = "DELETE FROM products WHERE id=?";
             pst = this.con.prepareStatement(query);
-            pst.setString(1, product.getName());
-            pst.setString(2, product.getCategory());
-            pst.setDouble(3, product.getPrice());
-            pst.setString(4, fileName);  // Save only the original file name
+            pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -198,5 +212,23 @@ public class ProductDao {
         }
     }
 
+    // Add this method to update a product in the database
+    public void updateProduct(Product product) {
+        try {
+            String query = "UPDATE products SET name=?, category=?, price=?, image=? WHERE id=?";
+            try (PreparedStatement pst = this.con.prepareStatement(query)) {
+                pst.setString(1, product.getName());
+                pst.setString(2, product.getCategory());
+                pst.setDouble(3, product.getPrice());
+                pst.setString(4, product.getImage());
+                pst.setInt(5, product.getId());
+
+                pst.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

@@ -73,7 +73,7 @@ public class ProductServlet extends HttpServlet {
             Connection con = DbCon.getConnection();
             ProductDao productDao = new ProductDao(con);
             productDao.addProduct(product);
-            con.close();
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
