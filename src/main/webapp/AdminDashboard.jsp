@@ -37,11 +37,31 @@
             transition: 0.8s;
             background-color: #e50c1d;
         }
+        .remove-button{
+            color: #000000;
+            transition: 0.8s;
+            background-color: #ffffff;
+        }
 
         .edit-button:hover{
             color: #ffffff;
             transition: 0.8s;
-            background-color: #6a21ea;
+            background-color: #0da68a;
+        }
+        .edit-button{
+            color: #000000;
+            transition: 0.8s;
+            background-color: #ffffff;
+        }
+        .add-button{
+            color: #ffffff;
+            transition: 0.8s;
+            background-color: #0da68a;
+        }
+        .add-button:hover{
+            color: #ffffff;
+            transition: 0.8s;
+            background-color: #0da68a;
         }
 
     </style>
@@ -260,9 +280,9 @@
             <div class="top-filter-menu text-center">
                 <div class="category-dropdown">
                     <h5 class="text-content font-weight-bold">Admin Dashboard</h5>
-                    <div class="add-to-cart-box bg-white">
+                    <div class="add-to-cart-box custom-text-black ">
                         <a href="AddProduct.jsp" class="text-decoration-none">
-                            <button class="btn btn-add-cart edit-button btn-success">Add Product</button>
+                            <button class="btn btn-add-cart add-button btn-success ">Add Product</button>
                         </a>
                     </div>
                 </div>
