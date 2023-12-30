@@ -15,7 +15,6 @@ import jakarta.servlet.http.Part;
 import java.io.*;
 import java.nio.file.Paths;
 
-// UpdateProductServlet.java
 @WebServlet("/UpdateProductServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10,             // 10MB
@@ -29,7 +28,7 @@ public class UpdateProductServlet extends HttpServlet {
         String productCategory = request.getParameter("productCategory");
         String productPriceStr = request.getParameter("productPrice");
 
-
+        // Debbuging
         System.out.println("productIdParam: " + productIdParam);
         System.out.println("productName: " + productName);
         System.out.println("productCategory: " + productCategory);
@@ -39,33 +38,44 @@ public class UpdateProductServlet extends HttpServlet {
             int productId = Integer.parseInt(productIdParam);
             double productPrice = Double.parseDouble(productPriceStr);
 
-            Product updatedProduct = new Product();
-            updatedProduct.setId(productId);
-            updatedProduct.setName(productName);
-            updatedProduct.setCategory(productCategory);
-            updatedProduct.setPrice(productPrice);
-
-            // Handle file upload
-            Part filePart = request.getPart("productImage");
-            String fileName = "";
-            if (filePart != null) {
-                fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
-                String filePath = uploadPath + File.separator + fileName;
-
-                try (InputStream fileContent = filePart.getInputStream();
-                     OutputStream os = new FileOutputStream(filePath)) {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = fileContent.read(buffer)) != -1) {
-                        os.write(buffer, 0, bytesRead);
-                    }
-                }
-                updatedProduct.setImage(fileName);
-            }
-
             try {
                 ProductDao productDao = new ProductDao(DbCon.getConnection());
+
+                // Fetch existing product details from the database
+                Product existingProduct = productDao.getProductById(productId);
+
+                // Create an updated product object
+                Product updatedProduct = new Product();
+                updatedProduct.setId(productId);
+                updatedProduct.setName(productName);
+                updatedProduct.setCategory(productCategory);
+                updatedProduct.setPrice(productPrice);
+
+                // Handle file upload
+                Part filePart = request.getPart("productImage");
+                String fileName = "";
+
+                if (filePart != null && filePart.getSize() > 0) {
+                    // New image provided, update the 'image' property
+                    fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                    String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+                    String filePath = uploadPath + File.separator + fileName;
+
+                    try (InputStream fileContent = filePart.getInputStream();
+                         OutputStream os = new FileOutputStream(filePath)) {
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = fileContent.read(buffer)) != -1) {
+                            os.write(buffer, 0, bytesRead);
+                        }
+                    }
+                    updatedProduct.setImage(fileName);
+                } else {
+                    // No new image provided, use the existing image value
+                    updatedProduct.setImage(existingProduct.getImage());
+                }
+
+                // Update the product
                 productDao.updateProduct(updatedProduct);
 
                 System.out.println("Product updated successfully!");
