@@ -92,7 +92,7 @@
 										<h3 class="mt-2 mb-3 text-white">TAKE ON THE DAY!</h3>
 										<p class="text-content banner-text text-white opacity-75 d-md-block d-none">
 											Green Store new way to Shopping.</p>
-										<button onclick="location.href = 'shop-left-sidebar.html';"
+										<button onclick="location.href = 'index.jsp';"
 												class="btn btn-animation btn-sm mend-auto">Shop Now <i
 												class="fa-solid fa-arrow-right icon"></i></button>
 									</div>
@@ -110,7 +110,7 @@
 										<h3 class="mt-2 mb-3">Fresh</h3>
 										<p class="text-content banner-text w-100">Super Offer to 50%
 											Off</p>
-										<button onclick="location.href = 'shop-left-sidebar.html';"
+										<button onclick="location.href = 'index.jsp';"
 												class="btn btn-animation btn-sm mend-auto">Shop Now <i
 												class="fa-solid fa-arrow-right icon"></i></button>
 									</div>

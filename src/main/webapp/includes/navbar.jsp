@@ -86,3 +86,17 @@
 	</div>
 </header>
 <!-- Header End -->
+<script>
+	function searchProducts(keyword) {
+		// Make an AJAX request to the servlet to fetch search results
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				var searchResultsContainer = document.getElementById('searchResults');
+				searchResultsContainer.innerHTML = xhr.responseText;
+			}
+		};
+		xhr.open('GET', 'SearchServlet?keyword=' + encodeURIComponent(keyword), true);
+		xhr.send();
+	}
+</script>

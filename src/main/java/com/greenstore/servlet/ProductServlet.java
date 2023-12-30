@@ -81,3 +81,9 @@ public class ProductServlet extends HttpServlet {
         response.sendRedirect("AdminDashboard.jsp");
     }
 }
+
+/*
+ * Created by IntelliJ IDEA.
+ * @author Bhathika Nilesh
+ * @since 2023/12
+ */
