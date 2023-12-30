@@ -1,4 +1,3 @@
-
 <!-- Header Start -->
 <header class="pb-0 fixed-header">
 	<div class="top-nav top-header">
@@ -8,9 +7,9 @@
 					<div class="navbar-top">
 						<button class="navbar-toggler d-xl-none d-inline navbar-menu-button" type="button"
 								data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
-                                <span class="navbar-toggler-icon navbar-toggler-icon-2">
-                                    <i class="fa-solid fa-bars"></i>
-                                </span>
+                            <span class="navbar-toggler-icon navbar-toggler-icon-2">
+                                <i class="fa-solid fa-bars"></i>
+                            </span>
 						</button>
 
 						<div class="middle-box">
@@ -28,13 +27,13 @@
 						<div class="rightside-box">
 							<div class="search-full">
 								<div class="input-group">
-                                        <span class="input-group-text">
-                                            <i data-feather="search" class="font-light"></i>
-                                        </span>
+                                    <span class="input-group-text">
+                                        <i data-feather="search" class="font-light"></i>
+                                    </span>
 									<input type="text" class="form-control search-type" placeholder="Search here..">
 									<span class="input-group-text close-search">
-                                            <i data-feather="x" class="font-light"></i>
-                                        </span>
+                                        <i data-feather="x" class="font-light"></i>
+                                    </span>
 								</div>
 							</div>
 							<ul class="right-side-menu">
@@ -48,42 +47,36 @@
 									</div>
 								</li>
 								<li class="right-side">
-									<a href="index.jsp" class="delivery-login-box" >
+									<a href="index.jsp" class="delivery-login-box">
 										<h3>Home</h3>
 									</a>
 								</li>
 								<li class="right-side">
-									<a href="cart.jsp"  class="delivery-login-box position-relative header-wishlist" >
-										<h3>Cart  </h3>
-										<span class="position-absolute top-0 start-100 translate-middle badge">
+									<a href="cart.jsp" class="delivery-login-box position-relative header-wishlist">
+										<h3>Cart</h3>
+										<span class="position-absolute top-0 start-100 translate-middle" style="background-color: transparent; color: red;font-weight: bold;">
 											${cart_list.size()}
 										</span>
 									</a>
 								</li>
-								<%
-									if (auth != null) {
-								%>
+								<% if (auth != null) { %>
 								<li class="right-side">
-									<a href="orders.jsp" class="delivery-login-box" >
+									<a href="orders.jsp" class="delivery-login-box">
 										<h3>Orders</h3>
 									</a>
 								</li>
 								<li class="right-side">
-									<a href="log-out" class="delivery-login-box" >
+									<a href="log-out" class="delivery-login-box">
 										<h3>Logout</h3>
 									</a>
 								</li>
-								<%
-								} else {
-								%>
+								<% } else { %>
 								<li class="right-side">
-									<a href="login.jsp" class="delivery-login-box" >
+									<a href="login.jsp" class="delivery-login-box">
 										<h3>Login</h3>
 									</a>
 								</li>
-								<%
-									}
-								%>
+								<% } %>
 							</ul>
 						</div>
 					</div>
@@ -93,5 +86,3 @@
 	</div>
 </header>
 <!-- Header End -->
-
-
