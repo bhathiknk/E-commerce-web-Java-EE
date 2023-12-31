@@ -23,22 +23,22 @@ public class AdminLoginServlet extends HttpServlet {
             String email = request.getParameter("login-email");
             String password = request.getParameter("login-password");
 
-            AdminDao adao = new AdminDao(DbCon.getConnection());
+            AdminDao adao = null;
+            try {
+                adao = new AdminDao(DbCon.getConnection());
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
             Admin admin = adao.adminLogin(email, password);
             if (admin != null) {
-                request.getSession().setAttribute("auth", admin);
+                // Successfully authenticated, you can perform additional actions if needed
                 response.sendRedirect("AdminDashboard.jsp");
             } else {
                 out.println("Invalid admin credentials");
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
         }
     }
 }
-
-/*
- * Created by IntelliJ IDEA.
- * @author Bhathika Nilesh
- * @since 2023/12
- */

@@ -33,11 +33,12 @@ public class LoginServlet extends HttpServlet {
 				out.println("there is no user");
 			}
 
-		} catch (ClassNotFoundException|SQLException e) {
-			e.printStackTrace();
-		} 
-
-	}
+		} catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 /*

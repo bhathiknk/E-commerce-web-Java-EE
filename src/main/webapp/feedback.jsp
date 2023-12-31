@@ -5,6 +5,24 @@
   Time: 22:47
   To change this template use File | Settings | File Templates.
 --%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="com.greenstore.connection.DbCon" %>
+
+<%
+  Connection connection = DbCon.getConnection();
+  PreparedStatement preparedStatement = null;
+  ResultSet resultSet = null;
+
+  try {
+    String query = "SELECT * FROM feedback";
+    preparedStatement = connection.prepareStatement(query);
+    resultSet = preparedStatement.executeQuery();
+  } catch (SQLException e) {
+    e.printStackTrace(); // Handle the exception appropriately
+  }
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -186,11 +204,26 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <%
+                          // Check if the resultSet is not null before iterating
+                          if (resultSet != null) {
+                            while (resultSet.next()) {
+                        %>
                         <tr>
-                          <td>user@example.com</td>
-                          <td>2023-12-25</td>
-                          <td>user feedback, SVRSVRSVSVRSRSVRSV</td>
+                          <td><%= resultSet.getString("Email") %></td>
+                          <td><%= resultSet.getString("Date") %></td>
+                          <td><%= resultSet.getString("Feedback") %></td>
+                          <td>
+                            <div class="add-to-cart-box bg-white">
+                             <form action="deleteFeedback" method="post">
+                              <input type="hidden" name="feedbackId" value="<%= resultSet.getInt("ID") %>">
+                              <button type="submit" class="btn btn-add-cart remove-button">Delete</button>
+                            </form>
+                            </div>
+                          </td>
                         </tr>
+                        <% }
+                        }%>
                         </tbody>
                       </table>
                     </div>

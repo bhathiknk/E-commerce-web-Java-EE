@@ -216,12 +216,15 @@
 							</form>
 						</div>
 					</li>
-					<form>
+					<form action="/FeedbackServlet" method="post">
 						<div class="row g-3 section-b-space">
 							<div class="col-md-12">
 								<label for="userEmail" class="form-label">Your Email:</label>
 								<div class="input-group">
-									<input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="Enter your email" required>
+									<!-- Use JSP expression to fetch user's email -->
+									<input type="email" class="form-control" id="userEmail" name="userEmail"
+										   placeholder="Enter your email" required
+										   value="<%= auth != null ? auth.getEmail() : "" %>">
 								</div>
 							</div>
 							<div class="col-md-12">
