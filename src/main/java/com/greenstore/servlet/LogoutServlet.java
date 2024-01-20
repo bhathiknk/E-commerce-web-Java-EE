@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,26 +14,33 @@ import java.io.PrintWriter;
 @WebServlet("/log-out")
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+
 		try (PrintWriter out = response.getWriter()) {
-			if(request.getSession().getAttribute("auth")!=null) {
-				request.getSession().removeAttribute("auth");
-				response.sendRedirect("login.jsp");
-			}else {
-				response.sendRedirect("index.jsp");
+			HttpSession session = request.getSession(false);
+
+			if (session != null) {
+				// Clear the cart information
+				session.removeAttribute("cart-list");
+
+				// Clear user authentication information
+				session.removeAttribute("auth");
+
+				// Invalidate the session
+				session.invalidate();
 			}
 
-		} 
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+			response.sendRedirect("login.jsp");
+		}
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 }
+
 
 /*
  * Created by IntelliJ IDEA.

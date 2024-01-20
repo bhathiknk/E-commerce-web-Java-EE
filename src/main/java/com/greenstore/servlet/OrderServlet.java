@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/cart-check-out")
-public class CartServlet extends HttpServlet {
+public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -125,7 +125,7 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
-	// Existing doPost method...
+
 
 	private String generateOrderNumber() {
 		// Static prefix for the order number
