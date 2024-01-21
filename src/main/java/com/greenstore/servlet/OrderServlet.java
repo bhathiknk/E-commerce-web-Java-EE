@@ -1,5 +1,20 @@
 package com.greenstore.servlet;
 
+import com.greenstore.model.Address;
+import com.greenstore.model.Cart;
+import com.greenstore.model.Order;
+import com.greenstore.model.Product;
+import com.greenstore.model.User;
+import com.greenstore.connection.DbCon;
+import com.greenstore.dao.AddressDao;
+import com.greenstore.dao.OrderDao;
+import com.greenstore.dao.ProductDao;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -8,21 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
-import com.greenstore.connection.DbCon;
-import com.greenstore.dao.AddressDao;
-import com.greenstore.dao.OrderDao;
-import com.greenstore.dao.ProductDao;
-import com.greenstore.model.Address;
-import com.greenstore.model.Cart;
-import com.greenstore.model.Order;
-import com.greenstore.model.Product;
-import com.greenstore.model.User;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/cart-check-out")
 public class OrderServlet extends HttpServlet {
@@ -33,11 +33,11 @@ public class OrderServlet extends HttpServlet {
 		try (PrintWriter out = response.getWriter()) {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
-			ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart-list");
+			ArrayList<Cart> cartList = (ArrayList<Cart>) request.getSession().getAttribute("cart-list");
 			User auth = (User) request.getSession().getAttribute("auth");
 
-			if (cart_list != null && auth != null) {
-				OrderDao oDao = new OrderDao(DbCon.getConnection());
+			if (cartList != null && auth != null) {
+				OrderDao orderDao = new OrderDao(DbCon.getConnection());
 				AddressDao addressDao = new AddressDao(DbCon.getConnection());
 
 				// Retrieve addresses for the user
@@ -52,11 +52,11 @@ public class OrderServlet extends HttpServlet {
 				double totalAmount = 0.0; // Initialize total amount
 
 				Order order = null;
-				for (Cart c : cart_list) {
+				for (Cart cart : cartList) {
 					order = new Order();
-					order.setId(c.getId());
+					order.setId(cart.getId());
 					order.setUid(auth.getId());
-					order.setQunatity(c.getQuantity());
+					order.setQunatity(cart.getQuantity());
 					order.setDate(formatter.format(date));
 
 					// Generate a unique order number for each order
@@ -65,7 +65,7 @@ public class OrderServlet extends HttpServlet {
 
 					// Retrieve product details based on p_id
 					ProductDao productDao = new ProductDao(DbCon.getConnection());
-					Product product = productDao.getProductById(c.getId());
+					Product product = productDao.getProductById(cart.getId());
 
 					// Add product details to order
 					order.setName(product.getName());
@@ -77,23 +77,27 @@ public class OrderServlet extends HttpServlet {
 					// Add the order to the list
 					orders.add(order);
 
-
 					// Calculate the order total and accumulate to the totalAmount
 					double orderTotal = order.getPrice() * order.getQunatity();
 					totalAmount += orderTotal;
 				}
 
 				// Insert all orders into the database
-				boolean result = oDao.insertOrders(orders);
+				boolean result = orderDao.insertOrders(orders);
 
 				if (result) {
 					// Create order details for email content
-					List<String> orderDetails = getOrderDetailsForEmail(orders);
+					List<String> orderDetails = getOrderDetailsForEmail(orders, totalAmount);
 
 					// Send a single order confirmation email for all orders
 					SendEmailUtil.sendOrderConfirmationEmail(auth.getEmail(), orders.get(0).getOrderNum(),
 							selectedAddress.getAddress(), selectedAddress.getCity(), selectedAddress.getZipcode(),
-							selectedAddress.getMobileNumber(),orders,totalAmount);
+							selectedAddress.getMobileNumber(), orders, totalAmount, SendEmailUtil.ADMIN_EMAIL);
+
+					// Send order confirmation email to the admin
+					SendEmailUtil.sendOrderConfirmationEmailToAdmin(auth.getEmail(), orders.get(0).getOrderNum(),
+							selectedAddress.getAddress(), selectedAddress.getCity(), selectedAddress.getZipcode(),
+							selectedAddress.getMobileNumber(), orders, totalAmount);
 
 					// Set orderNum in the session (you can choose any orderNum from the list)
 					request.getSession().setAttribute("orderNum", orders.get(0).getOrderNum());
@@ -101,10 +105,8 @@ public class OrderServlet extends HttpServlet {
 					request.getSession().setAttribute("orderDetails", orderDetails);
 
 					// Clear the cart after successful order processing
-					cart_list.clear();
+					cartList.clear();
 
-					// Send a success response
-					response.getWriter().write("Orders processed successfully");
 				} else {
 					// Handle the case where order insertion failed
 					response.getWriter().write("Order processing failed");
@@ -125,8 +127,6 @@ public class OrderServlet extends HttpServlet {
 		}
 	}
 
-
-
 	private String generateOrderNumber() {
 		// Static prefix for the order number
 		String prefix = "ORD";
@@ -142,14 +142,11 @@ public class OrderServlet extends HttpServlet {
 		return prefix + timestamp + randomString;
 	}
 
-	// Modify the getOrderDetailsForEmail method to calculate total
-	private List<String> getOrderDetailsForEmail(List<Order> orders) {
+	private List<String> getOrderDetailsForEmail(List<Order> orders, double totalAmount) {
 		List<String> orderDetails = new ArrayList<>();
-		double total = 0.0;
 
 		for (Order order : orders) {
 			double orderTotal = order.getPrice() * order.getQunatity();
-			total += orderTotal;
 
 			orderDetails.add("Product: " + order.getName() +
 					", Price: $" + order.getPrice() +
@@ -158,16 +155,8 @@ public class OrderServlet extends HttpServlet {
 		}
 
 		// Add total to the orderDetails
-		orderDetails.add("Total: $" + total);
+		orderDetails.add("Total: $" + totalAmount);
 
 		return orderDetails;
 	}
-
-
 }
-
-/*
- * Created by IntelliJ IDEA.
- * @author Bhathika Nilesh
- * @since 2023/12
- */
