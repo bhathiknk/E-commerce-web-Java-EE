@@ -1,4 +1,4 @@
-package com.greenstore.servlet;
+package com.greenstore.servlet.Orders;
 
 import com.greenstore.model.Address;
 import com.greenstore.model.Cart;
@@ -9,6 +9,7 @@ import com.greenstore.connection.DbCon;
 import com.greenstore.dao.AddressDao;
 import com.greenstore.dao.OrderDao;
 import com.greenstore.dao.ProductDao;
+import com.greenstore.servlet.Email.SendEmailUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

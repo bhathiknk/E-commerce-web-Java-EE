@@ -1,4 +1,4 @@
-package com.greenstore.servlet;
+package com.greenstore.servlet.Orders;
 
 import java.io.IOException;
 import java.util.ArrayList;

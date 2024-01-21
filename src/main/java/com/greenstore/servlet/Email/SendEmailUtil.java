@@ -1,4 +1,4 @@
-package com.greenstore.servlet;
+package com.greenstore.servlet.Email;
 
 import com.greenstore.model.Order;
 

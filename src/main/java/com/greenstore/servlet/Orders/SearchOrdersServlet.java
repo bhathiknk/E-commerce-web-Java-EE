@@ -1,4 +1,4 @@
-package com.greenstore.servlet;
+package com.greenstore.servlet.Orders;
 
 import com.greenstore.connection.DbCon;
 import com.greenstore.dao.OrderDao;

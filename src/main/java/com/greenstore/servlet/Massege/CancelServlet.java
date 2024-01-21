@@ -1,4 +1,4 @@
-package com.greenstore.servlet;
+package com.greenstore.servlet.Massege;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

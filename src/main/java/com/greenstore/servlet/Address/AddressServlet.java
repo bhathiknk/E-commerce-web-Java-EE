@@ -1,4 +1,4 @@
-package com.greenstore.servlet;
+package com.greenstore.servlet.Address;
 
 import java.io.IOException;
 import java.io.PrintWriter;

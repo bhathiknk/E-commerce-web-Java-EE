@@ -1,4 +1,4 @@
-package com.greenstore.servlet;
+package com.greenstore.servlet.UserCredential;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

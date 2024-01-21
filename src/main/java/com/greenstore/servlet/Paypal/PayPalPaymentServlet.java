@@ -1,4 +1,4 @@
-package com.greenstore.servlet;
+package com.greenstore.servlet.Paypal;
 
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Payer;
