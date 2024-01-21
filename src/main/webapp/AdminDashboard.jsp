@@ -170,6 +170,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page"> <a href="feedback.jsp">Feedbacks</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> <a href="adminorder.jsp">Orders</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -293,80 +294,80 @@
 
 
             <div class="row row-cols-xxl-6 row-cols-lg-5 row-cols-md-4 row-cols-sm-3 row-cols-2 g-sm-4 g-3 section-b-space">
-                        <%
-                            if (!products.isEmpty()) {
-                                for (Product p : products) {
-                        %>
-                        <div>
-                            <div class="product-box product-white-bg wow fadeIn">
-                                <div class="product-image">
-                                    <a href=#>
-                                        <img src="ProductImages/<%=p.getImage() %>"
-                                             class="img-fluid blur-up lazyload" alt="">
-                                    </a>
+                <%
+                    if (!products.isEmpty()) {
+                        for (Product p : products) {
+                %>
+                <div>
+                    <div class="product-box product-white-bg wow fadeIn">
+                        <div class="product-image">
+                            <a href=#>
+                                <img src="ProductImages/<%=p.getImage() %>"
+                                     class="img-fluid blur-up lazyload" alt="">
+                            </a>
 
-                                </div>
-                                <div class="product-detail position-relative">
-                                    <a href="#">
-                                        <h6 class="name">
-                                            <%=p.getCategory() %>
-                                        </h6>
-                                    </a>
-
-                                    <h6 class="sold weight text-content fw-normal"> <%=p.getName() %></h6>
-
-                                    <h6 class="price theme-color"> Rs. <%=p.getPrice() %></h6>
-
-                                    <div class="add-to-cart-box bg-white">
-                                        <form action="/DeleteProductServlet" method="post">
-                                            <input type="hidden" name="productId" value="<%=p.getId() %>">
-                                            <button type="submit" class="btn btn-add-cart remove-button">Remove</button>
-                                        </form>
-                                    </div>
-
-                                    <div class="add-to-cart-box bg-white">
-                                        <a href="UpdateProduct.jsp?productId=<%=p.getId() %>" class="text-decoration-none">
-                                            <button class="btn btn-add-cart edit-button btn-success">Edit</button>
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
                         </div>
-                        <%
-                                }
-                            }
-                            else
-                            {
-                                out.println("There is no products");
-                            }
-                        %>
+                        <div class="product-detail position-relative">
+                            <a href="#">
+                                <h6 class="name">
+                                    <%=p.getCategory() %>
+                                </h6>
+                            </a>
+
+                            <h6 class="sold weight text-content fw-normal"> <%=p.getName() %></h6>
+
+                            <h6 class="price theme-color"> Rs. <%=p.getPrice() %></h6>
+
+                            <div class="add-to-cart-box bg-white">
+                                <form action="/DeleteProductServlet" method="post">
+                                    <input type="hidden" name="productId" value="<%=p.getId() %>">
+                                    <button type="submit" class="btn btn-add-cart remove-button">Remove</button>
+                                </form>
+                            </div>
+
+                            <div class="add-to-cart-box bg-white">
+                                <a href="UpdateProduct.jsp?productId=<%=p.getId() %>" class="text-decoration-none">
+                                    <button class="btn btn-add-cart edit-button btn-success">Edit</button>
+                                </a>
+                            </div>
+
+                        </div>
                     </div>
-
-
-
-                <nav class="custome-pagination">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
-                                <i class="fa-solid fa-angles-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="AdminDashboard.jsp">Admin Dashboard</a>
-                        </li>
-                        <li class="page-item" aria-current="page">
-                            <a class="page-link" href="feedback.jsp">Feedback</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:void(0)">
-                                <i class="fa-solid fa-angles-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                </div>
+                <%
+                        }
+                    }
+                    else
+                    {
+                        out.println("There is no products");
+                    }
+                %>
             </div>
+
+
+
+            <nav class="custome-pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="AdminDashboard.jsp">Admin Dashboard</a>
+                    </li>
+                    <li class="page-item" aria-current="page">
+                        <a class="page-link" href="feedback.jsp">Feedback</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
+    </div>
     </div>
 </section>
 <!-- Shop Section End -->

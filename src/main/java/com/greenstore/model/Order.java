@@ -10,6 +10,8 @@ public class Order extends Product{
 
 	private Address address; // Reference to Address object
 
+	private String status;
+
 
 
 
@@ -69,6 +71,14 @@ public class Order extends Product{
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
 

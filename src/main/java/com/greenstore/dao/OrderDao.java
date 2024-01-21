@@ -74,7 +74,7 @@ public class OrderDao {
         List<Order> list = new ArrayList<>();
         try {
             query = "SELECT orders.o_id, orders.p_id, orders.u_id, orders.o_quantity, orders.o_date, orders.orderNum, " +
-                    "products.name, products.category, products.price " +
+                    "products.name, products.category, products.price, orders.status " + // Include status in the query
                     "FROM orders INNER JOIN products ON orders.p_id = products.id WHERE u_id = ? ORDER BY orders.o_id DESC";
             pst = this.con.prepareStatement(query);
             pst.setInt(1, userId);
@@ -86,10 +86,11 @@ public class OrderDao {
                 order.setUid(rs.getInt("u_id"));
                 order.setQunatity(rs.getInt("o_quantity"));
                 order.setDate(rs.getString("o_date"));
-                order.setOrderNum(rs.getString("orderNum")); // Include orderNum in the result set
+                order.setOrderNum(rs.getString("orderNum"));
                 order.setName(rs.getString("name"));
                 order.setCategory(rs.getString("category"));
                 order.setPrice(rs.getDouble("price") * rs.getInt("o_quantity"));
+                order.setStatus(rs.getString("status")); // Set status
                 list.add(order);
             }
         } catch (SQLException e) {
@@ -101,26 +102,11 @@ public class OrderDao {
         return list;
     }
 
-
-
-    public void cancelOrder(int orderId) {
-        try {
-            query = "DELETE FROM orders WHERE o_id=?";
-            pst = this.con.prepareStatement(query);
-            pst.setInt(1, orderId);
-            pst.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    // Add the following method for searching orders by order number
     public List<Order> searchOrderByOrderNum(int userId, String orderNum) {
         List<Order> list = new ArrayList<>();
         try {
             query = "SELECT orders.o_id, orders.p_id, orders.u_id, orders.o_quantity, orders.o_date, orders.orderNum, " +
-                    "products.name, products.category, products.price " +
+                    "products.name, products.category, products.price, orders.status " + // Include status in the query
                     "FROM orders INNER JOIN products ON orders.p_id = products.id WHERE u_id = ? AND orderNum=?";
             pst = this.con.prepareStatement(query);
             pst.setInt(1, userId);
@@ -133,10 +119,11 @@ public class OrderDao {
                 order.setUid(rs.getInt("u_id"));
                 order.setQunatity(rs.getInt("o_quantity"));
                 order.setDate(rs.getString("o_date"));
-                order.setOrderNum(rs.getString("orderNum")); // Include orderNum in the result set
+                order.setOrderNum(rs.getString("orderNum"));
                 order.setName(rs.getString("name"));
                 order.setCategory(rs.getString("category"));
                 order.setPrice(rs.getDouble("price") * rs.getInt("o_quantity"));
+                order.setStatus(rs.getString("status")); // Set status
                 list.add(order);
             }
         } catch (SQLException e) {
@@ -148,10 +135,112 @@ public class OrderDao {
         return list;
     }
 
+
     public boolean updateOrderStatus(String orderId) {
 
         return false;
     }
+
+    public List<Order> getAllOrders() {
+        List<Order> list = new ArrayList<>();
+        try {
+            query = "SELECT orders.o_id, orders.p_id, orders.u_id, orders.o_quantity, orders.o_date, orders.orderNum, " +
+                    "products.name, products.category, products.price, orders.status " +
+                    "FROM orders INNER JOIN products ON orders.p_id = products.id ORDER BY orders.o_id DESC";
+            pst = this.con.prepareStatement(query);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrderId(rs.getInt("o_id"));
+                order.setId(rs.getInt("p_id"));
+                order.setUid(rs.getInt("u_id"));
+                order.setQunatity(rs.getInt("o_quantity"));
+                order.setDate(rs.getString("o_date"));
+                order.setOrderNum(rs.getString("orderNum"));
+                order.setName(rs.getString("name"));
+                order.setCategory(rs.getString("category"));
+                order.setPrice(rs.getDouble("price") * rs.getInt("o_quantity"));
+                order.setStatus(rs.getString("status"));
+                list.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        return list;
+    }
+
+    // Modify the searchOrderByOrderNum method
+    public List<Order> searchOrderByOrderNum(String orderNum) {
+        List<Order> list = new ArrayList<>();
+        try {
+            query = "SELECT orders.o_id, orders.p_id, orders.u_id, orders.o_quantity, orders.o_date, orders.orderNum, " +
+                    "products.name, products.category, products.price, orders.status " +  // Include the status column
+                    "FROM orders INNER JOIN products ON orders.p_id = products.id WHERE orderNum=?";
+            pst = this.con.prepareStatement(query);
+            pst.setString(1, orderNum);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrderId(rs.getInt("o_id"));
+                order.setId(rs.getInt("p_id"));
+                order.setUid(rs.getInt("u_id"));
+                order.setQunatity(rs.getInt("o_quantity"));
+                order.setDate(rs.getString("o_date"));
+                order.setOrderNum(rs.getString("orderNum"));
+                order.setName(rs.getString("name"));
+                order.setCategory(rs.getString("category"));
+                order.setPrice(rs.getDouble("price") * rs.getInt("o_quantity"));
+                order.setStatus(rs.getString("status")); // Include status in the result set
+                list.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources (result set, statement, etc.)
+            // Add code to close the result set and statement
+        }
+        return list;
+    }
+
+
+    public boolean updateOrderStatus(String orderNum, String status) {
+        boolean result = false;
+        try {
+            // Start a transaction
+            con.setAutoCommit(false);
+
+            // Update the status for all orders with the given orderNum
+            query = "UPDATE orders SET status = ? WHERE orderNum = ?";
+            pst = con.prepareStatement(query);
+            pst.setString(1, status);
+            pst.setString(2, orderNum);
+            int rowsUpdated = pst.executeUpdate();
+
+            // Commit the transaction
+            con.commit();
+
+            // Check if any rows were updated
+            result = rowsUpdated > 0;
+
+            // Reset auto-commit to true for future operations
+            con.setAutoCommit(true);
+        } catch (SQLException e) {
+            try {
+                // Rollback the transaction in case of any exception
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            // Close resources (statement, etc.)
+            // Add code to close the statement
+        }
+        return result;
+    }
+
 
 }
 

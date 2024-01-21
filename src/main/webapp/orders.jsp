@@ -239,7 +239,8 @@
 				<th scope="col">Quantity</th>
 				<th scope="col">Price</th>
 				<th scope="col">Order Number</th>
-				<th scope="col">Cancel</th>
+				<th scope="col">Status</th>
+
 			</tr>
 			</thead>
 			<tbody>
@@ -254,7 +255,8 @@
 				<td><%= o.getQunatity() %></td>
 				<td><%= dcf.format(o.getPrice()) %></td>
 				<td><%= o.getOrderNum() %></td>
-				<td><a class="btn btn-sm btn-danger" href="cancel-order?id=<%= o.getOrderId() %>">Cancel Order</a></td>
+				<td><%= o.getStatus() %></td>
+
 			</tr>
 			<%
 					}

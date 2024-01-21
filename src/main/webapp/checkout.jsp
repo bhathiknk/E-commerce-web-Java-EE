@@ -28,7 +28,8 @@
     String selectedZipcode = (String) request.getAttribute("selectedZipcode");
     String selectedMobileNumber = (String) request.getAttribute("selectedMobileNumber");
 
-
+    String cancelUrl = request.getRequestURL().toString() + "/cancel";
+    String successUrl = request.getRequestURL().toString() + "/success";
 %>
 <html>
 <head>
@@ -36,7 +37,7 @@
     <!-- Bootstrap CSS link -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <script src="https://www.paypal.com/sdk/js?client-id=ARQyk4Cfn32QiSJtEfkvSFXs6oR5VhPpXNzWHg8aDS7mArEIiUZg-y09D6kJuxgKDdxemvS35SfzGsn0"></script>
+
 
     <!-- Add your custom styles here -->
     <style>
@@ -187,6 +188,9 @@
             background-color: red;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+        .text-center {
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -232,23 +236,23 @@
     <div class="total-price">
         <h3 class="h3-cls-total-p">Total Price: &nbsp; Rs.<%=dcf.format(total)%>.00</h3>
     </div>
-    <form>
-        <div id="paypal-button-container"></div>
-    </form>
 
+    <!-- PayPal button -->
+    <div class="text-center">
+        <form id="paypalForm" action="paypal-Payment" method="post">
+            <input type="hidden" name="total" value="<%=total%>">
+            <input type="hidden" name="cancelUrl" value="<%=cancelUrl%>">
+            <input type="hidden" name="successUrl" value="<%=successUrl%>">
 
-    <!-- Success message container -->
-    <div id="success-message" style="display: none;">
-        <div class="succss-msg-pay">
-            <h4>Payment Successful !</h4>
-            <p>Thank you for your purchase.</p>
-        </div>
-
-
-        <!-- Add a button to go to the order page -->
-        <button class="btn-go-my-od" onclick="goToOrderPage()">Go to My Orders</button>
-
+            <!-- PayPal button image and link -->
+            <a href="javascript:void(0);" onclick="submitPaypalForm()">
+                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" alt="Pay with PayPal" />
+            </a>
+        </form>
     </div>
+
+
+</div>
 
 </div>
 
@@ -263,60 +267,11 @@
 
 </div>
 
-
 <script>
-    function goToOrderPage() {
-        // Redirect to the order page or update the location as needed
-        window.location.href = 'orders.jsp';
+    function submitPaypalForm() {
+
+        document.getElementById('paypalForm').submit();
     }
-    paypal.Buttons({
-        createOrder: function (data, actions) {
-            // Set up the transaction details
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        currency_code: 'USD', // Change this to your desired currency code
-                        value: '<%=dcf.format(total)%>'
-                    }
-                }],
-                application_context: {
-                    shipping_preference: 'NO_SHIPPING'
-                }
-            });
-        },
-        onApprove: function (data, actions) {
-            // Capture the funds from the transaction
-            return actions.order.capture().then(function (details) {
-                // Hide PayPal button container
-                document.getElementById('paypal-button-container').style.display = 'none';
-
-                // Show the success message
-                document.getElementById('success-message').style.display = 'block';
-
-                // Make an AJAX call to the CartServlet
-                $.ajax({
-                    url: 'cart-check-out',
-                    method: 'GET',
-                    success: function(response) {
-                        // Handle the response if needed
-                    },
-                    error: function(error) {
-                        console.error('Error in AJAX call:', error);
-                        // Handle the error if needed
-                    }
-                });
-
-            });
-
-
-        },
-        onError: function (err) {
-            // Handle errors or display an error message to the user
-            console.error('PayPal error:', err);
-            // You can display an error message to the user here
-        }
-    }).render('#paypal-button-container');
-
 </script>
 
 
