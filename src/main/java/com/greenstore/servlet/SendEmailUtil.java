@@ -20,7 +20,7 @@ public class SendEmailUtil {
 
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("bhathikanilesh000@gmail.com", "vngj tdfz pvhe dzym");
+                return new PasswordAuthentication("bhathikanilesh000@gmail.com", "");
             }
         });
 
